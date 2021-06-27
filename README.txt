@@ -1,0 +1,1 @@
+O arquivo Interpol é um código pessoal que utilizei na questão 7.
