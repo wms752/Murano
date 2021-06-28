@@ -1,7 +1,7 @@
 #Questão 4
 #Bibliotecas necessárias importadas abaixo
 #Aperte F5 para funcionar
-#Comentário: ao rodar o código novamente, a planilha excel é reiniciada (fez mais sentido pra mim dessa forma). É possível alterar.
+#Na linha 21 é necessáeio alterar o caminho para onde está o arquivo python em sua máquina
 
 
 import pandas as pd
@@ -10,17 +10,36 @@ from openpyxl import Workbook
 
 from openpyxl import load_workbook
 
+from pathlib import Path
+
 '-------- Criação da classe banco de dados --------'
 
 class Banco_dados:
     
-    def __init__(self): 
+    def __init__(self):
         
-        Bancodados_excel=Workbook()         #Criando um arquivo excel e salvando-o no mesmo local deste arquivo python 
-        planilha1=Bancodados_excel.active
-        planilha1.append(("DRE", "Curso", "Nome", "Genero", "Data_de_Nascimento", "Altura", "Peso", "CRA", "Creditos obtidos", "Renda"))
-        Bancodados_excel.save("Bancodados.xlsx")
+        filename = "C:\\Users\\Wesley\\Desktop\\Murano\\Bancodados.xlsx" #caminho onde o arquivo python está
+        fileObj=Path(filename)
+        a=fileObj.is_file()
+        
+        if a:
+            
+            print("Banco de dados existente, carregando seus dados...")
+            
+        else:
+            Bancodados_excel=Workbook()         #Criando um arquivo excel e salvando-o no mesmo local deste arquivo python 
+            planilha1=Bancodados_excel.active
+            planilha1.append(("DRE", "Curso", "Nome", "Genero", "Data_de_Nascimento", "Altura", "Peso", "CRA", "Creditos obtidos", "Renda"))
+            Bancodados_excel.save("Bancodados.xlsx")
+            print("Banco de dados inexistente, criando...")
 
+
+        
+##        Bancodados_excel=Workbook()         #Criando um arquivo excel e salvando-o no mesmo local deste arquivo python 
+##        planilha1=Bancodados_excel.active
+##        planilha1.append(("DRE", "Curso", "Nome", "Genero", "Data_de_Nascimento", "Altura", "Peso", "CRA", "Creditos obtidos", "Renda"))
+##        Bancodados_excel.save("Bancodados.xlsx")
+##
     def cadastro(self, DRE, Curso, Nome, Genero, Data_de_Nascimento, Altura, Peso, CRA, Creditos_obtidos, Renda):
         
         Bancodados_excel=load_workbook("Bancodados.xlsx")
